@@ -9,11 +9,12 @@ const Navbar = () => {
           <span>Key</span><span className='text-green-700'>OP/&gt;</span>
           
         </div>
-        <ul className='flex justify-between items-center gap-4'>
-            <li className='hover:font-bold hover:cursor-pointer'>Home </li>
-            <li className='hover:font-bold hover:cursor-pointer'>Contact</li>
-            <li className='hover:font-bold hover:cursor-pointer'>About</li>
-        </ul>
+        <div className="github-btn">
+          <button className='bg-green-500 flex gap-1 justify-around items-center w-28 p-1 px-1 rounded-2xl ring-1 ring-white hover:bg-green-600 ease-in-out'>
+            <img className='invert w-7' src="icons/github.svg" alt="GitIcon" />
+            <span className='text-white font-bold'>GitHub</span>
+          </button>
+        </div>
         </div>
     </nav>
   )
