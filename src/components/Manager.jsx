@@ -40,13 +40,17 @@ const Manager = () => {
   };
 
   const deletePassword = (id) => {
-    const newPasswordArray = passwordArray.filter(item => item.id != id);
-    setPasswordArray(newPasswordArray);  
-    localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
+    let agreeToDelete = confirm("Delete this record?");
+    if(agreeToDelete) {
+      const newPasswordArray = passwordArray.filter(item => item.id != id);
+      setPasswordArray(newPasswordArray);  
+      localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
+    }
   };
 
   const editPassword = (id) => {
     console.log("edit item id", id);
+    setForm(passwordArray.filter(item => item.id === id)[0])
     // setPasswordArray([...passwordArray, {...form, id: uuidv4()}]);
     // localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
     // console.log([...passwordArray, form]);
