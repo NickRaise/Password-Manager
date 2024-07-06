@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 // uuidv4();  ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 
 const Manager = () => {
@@ -34,26 +34,54 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    setPasswordArray([...passwordArray, {...form, id: uuidv4()}]);
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]));
-    // console.log([...passwordArray, form]);
+
+    if(form.site.length < 3 || form.username.length < 3 || form.password < 4)  return;
+
+    const doesExist = checkExist();
+
+    if (doesExist == false) {
+      setPasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
+      localStorage.setItem(
+        "passwords",
+        JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
+      );
+    } else {
+      updatePassword();
+    }
+  };
+
+  const checkExist = () => {
+    const item = passwordArray.filter(
+      (item) => form.site === item.site && form.username === item.username
+    );
+    if (item.length === 0) return false;
+    return true;
+  };
+
+  const updatePassword = () => {
+    const newPasswordArray = passwordArray.map((item) => {
+      if (form.site === item.site && form.username === item.username) {
+        item.password = form.password;
+        return item;
+      } else return item;
+    });
+    console.log(newPasswordArray);
+    setPasswordArray(newPasswordArray);
+    localStorage.setItem("passwords", JSON.stringify(passwordArray));
   };
 
   const deletePassword = (id) => {
     let agreeToDelete = confirm("Delete this record?");
-    if(agreeToDelete) {
-      const newPasswordArray = passwordArray.filter(item => item.id != id);
-      setPasswordArray(newPasswordArray);  
+    if (agreeToDelete) {
+      const newPasswordArray = passwordArray.filter((item) => item.id != id);
+      setPasswordArray(newPasswordArray);
       localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
     }
   };
 
   const editPassword = (id) => {
     console.log("edit item id", id);
-    setForm(passwordArray.filter(item => item.id === id)[0])
-    // setPasswordArray([...passwordArray, {...form, id: uuidv4()}]);
-    // localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
-    // console.log([...passwordArray, form]);
+    setForm(passwordArray.filter((item) => item.id === id)[0]);
   };
 
   const copyItem = (text) => {
@@ -217,14 +245,20 @@ const Manager = () => {
                       </td>
                       <td className="text-center py-2 border border-white">
                         <div className="flex gap-4 justify-center items-center">
-                          <span className="cursor-pointer" onClick={() => editPassword(item.id)}>
-                            <lord-icon 
+                          <span
+                            className="cursor-pointer"
+                            onClick={() => editPassword(item.id)}
+                          >
+                            <lord-icon
                               src="https://cdn.lordicon.com/gwlusjdu.json"
                               trigger="hover"
                               style={{ width: "25px", height: "25px" }}
                             ></lord-icon>
                           </span>
-                          <span className="cursor-pointer" onClick={() => deletePassword(item.id)}>
+                          <span
+                            className="cursor-pointer"
+                            onClick={() => deletePassword(item.id)}
+                          >
                             <lord-icon
                               src="https://cdn.lordicon.com/skkahier.json"
                               trigger="hover"
