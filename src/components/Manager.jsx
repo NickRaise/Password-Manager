@@ -129,7 +129,7 @@ const Manager = () => {
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-20 blur-[100px]"></div>
       </div>
 
-      <div className="md:mycontainer py-10 min-h-[85vh]">
+      <div className="md:mycontainer px-2 py-10 min-h-[85vh]">
         <h1 className="font-bold text-4xl text-center">
           <span className="text-green-700">&lt;</span>
           <span>Key</span>
