@@ -34,7 +34,7 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    if (form.site.length < 3 && form.username.length < 3 && form.password < 4) {
+    if (form.site.length < 3 || form.username.length < 3 || form.password < 4) {
       toast.error("Error: Password not saved!", {
         position: "top-right",
         autoClose: 1000,
