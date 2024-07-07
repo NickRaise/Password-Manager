@@ -35,17 +35,7 @@ const Manager = () => {
 
   const savePassword = () => {
     if (form.site.length < 3 && form.username.length < 3 && form.password < 4) {
-      toast.error("Error: Password not saved!", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      console.log("visited");
+      toastFailed("Error: Password not saved!");
       return;
     }
     const doesExist = checkExist();
@@ -55,6 +45,7 @@ const Manager = () => {
         "passwords",
         JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
       );
+      toastSuccess("Saved!")
     } else {
       updatePassword();
     }
@@ -76,9 +67,9 @@ const Manager = () => {
         return item;
       } else return item;
     });
-    console.log(newPasswordArray);
     setPasswordArray(newPasswordArray);
     localStorage.setItem("passwords", JSON.stringify(passwordArray));
+    toastSuccess("Updated successfully!");
   };
 
   const deletePassword = (id) => {
@@ -87,6 +78,9 @@ const Manager = () => {
       const newPasswordArray = passwordArray.filter((item) => item.id != id);
       setPasswordArray(newPasswordArray);
       localStorage.setItem("passwords", JSON.stringify(newPasswordArray));
+      toastSuccess("Deleted successfully!");
+    } else {
+      toastFailed("Password not deleted!");
     }
   };
 
@@ -97,7 +91,24 @@ const Manager = () => {
 
   const copyItem = (text) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied", {
+    toastSuccess("Copied");
+  };
+
+  const toastSuccess = (msg) => {
+    toast.success(msg, {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  const toastFailed = (msg) => {
+    toast.error(msg, {
       position: "top-right",
       autoClose: 1000,
       hideProgressBar: true,
