@@ -195,21 +195,21 @@ const Manager = () => {
           )}
           {passwordArray.length != 0 && (
             <div className="overflow-x-hidden">
-              <table className="table-auto w-full rounded-md overflow-hidden">
+              <table className="table-auto w-full rounded-xl overflow-hidden border-collapse">
                 <thead className="bg-green-800 text-white">
                   <tr>
-                    <th className="p-2">Website</th>
-                    <th className="p-2">Username</th>
-                    <th className="p-2">Password</th>
-                    <th className="p-2">Actions</th>
+                    <th className="p-2 border border-white">Website</th>
+                    <th className="p-2 border border-white">Username</th>
+                    <th className="p-2 border border-white">Password</th>
+                    <th className="p-2 border border-white">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-green-100">
                   {passwordArray.map((item, index) => {
                     return (
                       <tr key={item.id}>
-                        <td className="py-2 border border-white">
-                          <div className="flex items-center justify-center gap-1">
+                        <td className="py-2 border border-white w-1/2">
+                          <div className="flex items-center justify-between px-4 gap-1">
                             <a href={item.site} target="_blank">
                               {item.site}
                             </a>
@@ -226,7 +226,7 @@ const Manager = () => {
                           </div>
                         </td>
                         <td className="py-2 border border-white">
-                          <div className="flex items-center justify-center gap-1">
+                          <div className="flex items-center justify-between px-4 gap-1">
                             <span>{item.username}</span>
                             <div
                               className="lordicon-copy cursor-pointer size-7 pt-1"
@@ -242,10 +242,10 @@ const Manager = () => {
                         </td>
                         <td className="py-2 border border-white">
                           <div
-                            className="flex items-center justify-center gap-1  cursor-pointer"
+                            className="flex items-center justify-between px-4 gap-1  cursor-pointer"
                             onClick={() => copyItem(item.password)}
                           >
-                            <span>{item.password}</span>
+                            <span>{'\u2022'.repeat(item.password.length)}</span>
                             <div className="lordicon-copy size-7 pt-1">
                               <lord-icon
                                 src="https://cdn.lordicon.com/iykgtsbt.json"
